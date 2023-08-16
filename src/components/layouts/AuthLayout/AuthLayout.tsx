@@ -13,23 +13,18 @@ export default function AuthLayout() {
   direction="row"
   justifyContent="center"
   alignItems="stretch"
-  sx={{ height: '100vh' }}
+  sx={{ height: '100%' }}
   >
      <Grid item xs={6}>
      <Box
     sx={{
     //   width: 500,
     height: '100%',
-      py: 20,
-      px: 10,
       backgroundImage: "url('/assets/images/matrix.jpeg'), linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25))",
     backgroundBlendMode: "overlay",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     borderRadius: "2.5%",
-    //   maxWidth: '100%',
-    //   boxShadow: 12,
-      border: "1px solid grey",
     }}
   >
      {/* <Outlet/> */}
@@ -39,11 +34,9 @@ export default function AuthLayout() {
     <Grid item xs={6}>
      <Box
     sx={{
-    height: '100%',
-      py: 20,
-      px: 10,
-    
-      border: "1px solid grey",
+      height: '100%',
+      borderRadius: "2.5%",
+      // border: "1px solid grey",
     }}
   >
      <Outlet/>
