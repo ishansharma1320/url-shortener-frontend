@@ -1,6 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import AuthLayout from "./components/layouts/AuthLayout/AuthLayout";
-import Login from "./components/layouts/login/Login";
+import AuthForm from "./components/layouts/login/AuthForm";
 
   
   
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
     
-      { path: "login", element: <Login /> },
-     
+      { path: "login", element: <AuthForm isSignUp={false}/> },
+      { path: "signup", element: <AuthForm isSignUp={true}/> },
     ],
   },
   ])
