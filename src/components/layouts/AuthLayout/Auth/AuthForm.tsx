@@ -1,6 +1,7 @@
 import { OutlinedInput, Divider, Box, Card, CardContent, Button, Typography, CardHeader, FormControl, IconButton, InputAdornment, InputLabel, Stack, TextField } from '@mui/material';
 
 import { Visibility, Mail, Apple, Google, Facebook } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 
 
@@ -13,23 +14,27 @@ export default function AuthForm(props: any) {
         <Typography variant='h5'>Please enter your details</Typography>
       </Box>
       <Box sx={{ margin: "5rem" }}>
-        <Card >
+        <Card sx={{ borderRadius: "4rem", boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           <CardHeader title={isSignUp ? "Sign Up" : "Login"} sx={{ textAlign: "center", marginTop: "1em" }}></CardHeader>
           <CardContent>
             <Stack direction="column" spacing={2} sx={{ margin: "3rem 10rem" }}>
               <FormControl variant="outlined">
-                <TextField 
+                <TextField
                   id="outlined-adornment-email"
                   type="text"
-                  
-                  sx={{"& .MuiOutlinedInput-root": {
-                    borderRadius: "25px"
-                  }}}
-                  InputProps={{endAdornment:
-                    <InputAdornment position="end" >
-                      <Mail />
-                    </InputAdornment>}} 
-                  
+
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "25px"
+                    }
+                  }}
+                  InputProps={{
+                    endAdornment:
+                      <InputAdornment position="end" >
+                        <Mail />
+                      </InputAdornment>
+                  }}
+
                   label="Email"
                 />
               </FormControl>
@@ -37,38 +42,44 @@ export default function AuthForm(props: any) {
                 <TextField
                   id="outlined-adornment-password"
                   type="text"
-                  sx={{"& .MuiOutlinedInput-root": {
-                    borderRadius: "25px"
-                  }}}
-                  InputProps={{ endAdornment:
-                    <InputAdornment position="end" >
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        edge="end"
-                      >
-                        <Visibility />
-                      </IconButton>
-                    </InputAdornment>
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "25px"
+                    }
+                  }}
+                  InputProps={{
+                    endAdornment:
+                      <InputAdornment position="end" >
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          edge="end"
+                        >
+                          <Visibility />
+                        </IconButton>
+                      </InputAdornment>
                   }}
                   label="Password"
                 />
               </FormControl>
               {isSignUp && <FormControl variant="outlined" >
                 <TextField
-                sx={{"& .MuiOutlinedInput-root": {
-                  borderRadius: "25px"
-                }}}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "25px"
+                    }
+                  }}
                   id="outlined-adornment-confirmpassword"
                   type="text"
-                  InputProps={{ endAdornment:
-                    <InputAdornment position="end" >
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        edge="end"
-                      >
-                        <Visibility />
-                      </IconButton>
-                    </InputAdornment>
+                  InputProps={{
+                    endAdornment:
+                      <InputAdornment position="end" >
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          edge="end"
+                        >
+                          <Visibility />
+                        </IconButton>
+                      </InputAdornment>
                   }}
                   label="Confirm Password"
                 />
@@ -85,6 +96,17 @@ export default function AuthForm(props: any) {
                 <IconButton sx={{ border: "1px solid #e7e7ea", width: "fit-content" }}> <Apple /></IconButton>
                 <IconButton sx={{ border: "1px solid #e7e7ea", width: "fit-content" }}> <Google /></IconButton>
                 <IconButton sx={{ border: "1px solid #e7e7ea", width: "fit-content" }}>  <Facebook /> </IconButton>
+              </Stack>
+              <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+                {isSignUp ?
+                  <>
+                    <p> Already have an account</p>
+                    <Link to="/auth/login">Login</Link>
+                  </> : <>
+                    <p>You dont have an account yet</p>
+                    <Link to="/auth/signup">Sign Up</Link>
+                  </>
+                }
               </Stack>
             </Stack>
 
