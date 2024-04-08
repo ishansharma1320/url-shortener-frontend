@@ -35,31 +35,26 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-  price: number,
+  long_url: string,
+  short_url: string,
+  created_date: string,
 ) {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
+    long_url,
+    short_url,
+    created_date,
     history: [
       {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
+        ip: '192.168.0.1',
+        region: 'US',
+        date: '2024-04-10',
       },
       {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
+        ip: '192.168.0.2',
+        region: 'UK',
+        date: '2024-04-11',
       },
+      
     ],
   };
 }
@@ -81,41 +76,35 @@ function Row(props: { row: ReturnType<typeof createData> , index: Number}) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.long_url}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-        <TableCell align="right" style={{width: "10%" }}> <IconButton><EditIcon /> </IconButton> <IconButton><DeleteIcon /> </IconButton></TableCell>
+        <TableCell align="right">{row.short_url}</TableCell>
+        <TableCell align="right">{row.created_date}</TableCell>
+        <TableCell align="right" style={{ width: "10%" }}> <IconButton><EditIcon /> </IconButton> <IconButton><DeleteIcon /> </IconButton></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Interactions
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>IP Address</TableCell>
+                    <TableCell>Region</TableCell>
+                    <TableCell align="right">Access Date</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.history.map((historyRow,index) => (
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {historyRow.ip}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell>{historyRow.region}</TableCell>
+                      <TableCell align="right">{historyRow.date}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -129,11 +118,9 @@ function Row(props: { row: ReturnType<typeof createData> , index: Number}) {
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+  createData("https://www.google.com","https://1.xyz","2024-04-08"),
+  createData("https://www.yahoo.com","https://2.xyz","2024-04-07"),
+  createData("https://www.bing.com","https://3.xyz","2024-04-06")
 ];
 
 export default function HomeLayout() {
@@ -209,17 +196,14 @@ export default function HomeLayout() {
       <TableHead>
         <TableRow>
           <TableCell />
-          <TableCell>Dessert (100g serving)</TableCell>
-          <TableCell align="right">Calories</TableCell>
-          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-          <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          <TableCell align="right">Actions</TableCell>
+          <TableCell>Long URL</TableCell>
+          <TableCell align="right">Short URL</TableCell>
+          <TableCell align="right">Date Created</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {rows.map((row,index) => (
-          <Row key={row.name} row={row} index={index}/>
+          <Row key={index} row={row} index={index}/>
         ))}
       </TableBody>
     </Table>
