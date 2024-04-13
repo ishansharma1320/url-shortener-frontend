@@ -30,6 +30,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import TextField from '@mui/material/TextField';
+import { InputAdornment } from '@mui/material';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -38,11 +40,13 @@ function createData(
   long_url: string,
   short_url: string,
   created_date: string,
+  clicks: number
 ) {
   return {
     long_url,
     short_url,
     created_date,
+    clicks,
     history: [
       {
         ip: '192.168.0.1',
@@ -78,8 +82,9 @@ function Row(props: { row: ReturnType<typeof createData> , index: Number}) {
         <TableCell component="th" scope="row">
           {row.long_url}
         </TableCell>
-        <TableCell align="right">{row.short_url}</TableCell>
-        <TableCell align="right">{row.created_date}</TableCell>
+        <TableCell>{row.short_url}</TableCell>
+        <TableCell>{row.created_date}</TableCell>
+        <TableCell>{row.clicks}</TableCell>
         <TableCell align="right" style={{ width: "10%" }}> <IconButton><EditIcon /> </IconButton> <IconButton><DeleteIcon /> </IconButton></TableCell>
       </TableRow>
       <TableRow>
@@ -118,9 +123,9 @@ function Row(props: { row: ReturnType<typeof createData> , index: Number}) {
 }
 
 const rows = [
-  createData("https://www.google.com","https://1.xyz","2024-04-08"),
-  createData("https://www.yahoo.com","https://2.xyz","2024-04-07"),
-  createData("https://www.bing.com","https://3.xyz","2024-04-06")
+  createData("https://www.google.com","https://1.xyz","2024-04-08",1),
+  createData("https://www.yahoo.com","https://2.xyz","2024-04-07",2),
+  createData("https://www.bing.com","https://3.xyz","2024-04-06",3)
 ];
 
 export default function HomeLayout() {
@@ -190,15 +195,27 @@ export default function HomeLayout() {
         </Toolbar>
       </AppBar>
     </Box>
-    <Stack direction="column" sx={{margin: "5rem"}}>
+    <Stack direction="column" sx={{margin: "5rem"}} spacing={2}>
+      <Stack direction="row" spacing={2} justifyContent="center"
+  alignItems="center">
+      <TextField InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Typography> short.xyz / </Typography>
+            </InputAdornment>
+          ),}} placeholder="Enter your link" sx={{backgroundColor: "white"}} fullWidth id="fullWidth" />
+      <Button variant="contained" sx={{height: '80%', width: '10%'}}>Shorten URL</Button>
+      </Stack>
     <TableContainer component={Paper} >
     <Table aria-label="collapsible table">
       <TableHead>
         <TableRow>
           <TableCell />
           <TableCell>Long URL</TableCell>
-          <TableCell align="right">Short URL</TableCell>
-          <TableCell align="right">Date Created</TableCell>
+          <TableCell>Short URL</TableCell>
+          <TableCell>Clicks</TableCell>
+          <TableCell>Date Created</TableCell>
+          <TableCell align='right'>Action</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
